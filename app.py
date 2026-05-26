@@ -4,6 +4,7 @@ from tensorflow.keras import layers
 import numpy as np
 from PIL import Image
 import io
+import pandas as pd
 
 from groq_helper import get_rekomendasi
 
@@ -111,6 +112,24 @@ CLASS_NAMES = [
     'tiwul',
     'wingko babat'
 ]
+
+# LOAD DATA NUTRISI
+df_nutrisi = pd.read_csv("dataset_nutrisi_jajanan.csv")
+
+# rapikan nama kolom
+df_nutrisi.columns = (
+    df_nutrisi.columns
+    .str.strip()
+    .str.lower()
+)
+
+# rapikan nama makanan
+df_nutrisi["nama_makanan"] = (
+    df_nutrisi["nama_makanan"]
+    .astype(str)
+    .str.strip()
+    .str.lower()
+)
 
 class AdaptivePreprocessing(tf.keras.layers.Layer):
     def __init__(self, epsilon=1e-6, **kwargs):
@@ -265,6 +284,74 @@ def preprocess_image(image):
 
     return image
 
+def kategori_gi(gi):
+
+    if gi < 55:
+        return "Rendah"
+
+    elif gi <= 69:
+        return "Sedang"
+
+    return "Tinggi"
+
+
+def kategori_gl(gl):
+
+    if gl < 10:
+        return "Rendah"
+
+    elif gl <= 19:
+        return "Sedang"
+
+    return "Tinggi"
+
+
+def get_nutrisi(nama_makanan):
+
+    nama_makanan = nama_makanan.lower().strip()
+
+    data = df_nutrisi[
+        df_nutrisi["nama_makanan"] == nama_makanan
+    ]
+
+    if data.empty:
+        return None
+
+    row = data.iloc[0]
+
+    gi = float(row["estimasi_indeks_glikemik"])
+
+    gl = float(row["estimasi_glycemic_load"])
+
+    return {
+
+        "porsi": "100 g",
+
+        "kalori": f"{row['kalori_kkal']} kkal",
+
+        "karbohidrat": f"{row['karbohidrat_g']} g",
+
+        "gula": f"{row['gula_g']} g",
+
+        "protein": f"{row['protein_g']} g",
+
+        "lemak": f"{row['lemak_g']} g",
+
+        "gi": {
+            "nama": "Glycemic Index",
+            "alias": "Indeks Glikemik",
+            "nilai": gi,
+            "kategori": kategori_gi(gi)
+        },
+
+        "gl": {
+            "nama": "Glycemic Load",
+            "alias": "Beban Glikemik",
+            "nilai": gl,
+            "kategori": kategori_gl(gl)
+        }
+    }
+
 @app.get("/")
 def home():
     return {
@@ -289,6 +376,10 @@ async def predict(file: UploadFile = File(...)):
 
     confidence = float(np.max(prediction))
 
+    # ambil data nutrisi
+    nutrisi = get_nutrisi(predicted_class)
+
+    # AI recommendation
     rekomendasi_ai = get_rekomendasi(
         prediksi_label=predicted_class,
         confidence=confidence
@@ -296,6 +387,10 @@ async def predict(file: UploadFile = File(...)):
 
     return {
         "prediction": predicted_class,
+
         "confidence": round(confidence * 100, 2),
+
+        "nutrisi": nutrisi,
+
         "rekomendasi_ai": rekomendasi_ai
     }
