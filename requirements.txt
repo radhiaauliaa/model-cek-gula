@@ -4,5 +4,6 @@ tensorflow
 numpy
 pillow
 python-multipart
-python-dotenv
 groq
+python-dotenv
+pandas
