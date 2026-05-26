@@ -1,3 +1,12 @@
+---
+title: Model Cek Gula
+emoji: 🍩
+colorFrom: yellow
+colorTo: pink
+sdk: docker
+pinned: false
+---
+
 # Cek Gula Darah dari Mata Menggunakan Deep Learning
 
 ## Deskripsi Proyek
@@ -23,7 +32,7 @@ Model dikembangkan menggunakan TensorFlow Functional API dengan beberapa kompone
 
 ## Fitur Generative AI
 
-Aplikasi menggunakan Google Gemini API sebagai fitur sekunder untuk:
+Aplikasi menggunakan Groq API sebagai fitur sekunder untuk:
 - memberikan rekomendasi konsumsi
 - alternatif jajanan lebih sehat
 - edukasi gula darah
@@ -33,4 +42,3 @@ Aplikasi menggunakan Google Gemini API sebagai fitur sekunder untuk:
 
 ```bash
 uvicorn app:app --reload
-
