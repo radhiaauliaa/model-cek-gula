@@ -305,6 +305,38 @@ def kategori_gl(gl):
 
     return "Tinggi"
 
+def get_saran_konsumsi(gi, gl):
+
+    if gi >= 70 or gl >= 20:
+
+        return {
+            "risiko": "Tinggi",
+            "saran": [
+                "Batasi konsumsi makanan manis dan tinggi karbohidrat sederhana.",
+                "Perbanyak konsumsi sayur, protein, dan serat.",
+                "Hindari konsumsi berlebihan dalam satu waktu."
+            ]
+        }
+
+    elif gi >= 55 or gl >= 10:
+
+        return {
+            "risiko": "Sedang",
+            "saran": [
+                "Konsumsi dalam porsi wajar.",
+                "Imbangi dengan aktivitas fisik ringan.",
+                "Kurangi tambahan gula atau topping manis."
+            ]
+        }
+
+    return {
+        "risiko": "Rendah",
+        "saran": [
+            "Relatif aman dikonsumsi dalam porsi normal.",
+            "Tetap perhatikan pola makan seimbang.",
+            "Konsumsi air putih yang cukup."
+        ]
+    }
 
 def get_nutrisi(nama_makanan):
 
@@ -322,6 +354,8 @@ def get_nutrisi(nama_makanan):
     gi = float(row["estimasi_indeks_glikemik"])
 
     gl = float(row["estimasi_glycemic_load"])
+
+    saran = get_saran_konsumsi(gi, gl)
 
     return {
 
@@ -349,7 +383,11 @@ def get_nutrisi(nama_makanan):
             "alias": "Beban Glikemik",
             "nilai": gl,
             "kategori": kategori_gl(gl)
-        }
+        },
+
+        "risiko_gula_darah": saran["risiko"],
+
+        "saran_konsumsi": saran["saran"]
     }
 
 @app.get("/")
