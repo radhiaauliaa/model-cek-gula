@@ -1,0 +1,17 @@
+.env
+
+__pycache__/
+*.pyc
+
+logs/
+
+*.ipynb_checkpoints
+
+best_model.keras
+best_model_phase1.keras
+
+images.png
+
+cek_gula.ipynb
+
+train_history_v3.png
