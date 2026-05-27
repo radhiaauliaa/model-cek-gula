@@ -1,10 +1,6 @@
 ---
 title: Model Cek Gula
-emoji: 🍩
-colorFrom: yellow
-colorTo: pink
 sdk: docker
-pinned: false
 ---
 
 # Cek Gula Darah dari Mata Menggunakan Deep Learning
