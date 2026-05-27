@@ -114,7 +114,7 @@ CLASS_NAMES = [
 ]
 
 # LOAD DATA NUTRISI
-df_nutrisi = pd.read_csv("dataset_nutrisi_lengkap.csv")
+df_nutrisi = pd.read_csv("dataset_nutrisi_lengkap2.csv")
 
 # rapikan nama kolom
 df_nutrisi.columns = (
