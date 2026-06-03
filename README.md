@@ -3,10 +3,10 @@ title: Model Cek Gula
 sdk: docker
 ---
 
-# Cek Gula Darah dari Mata Menggunakan Deep Learning
+# Aplikasi Cek Gula
 
 ## Deskripsi Proyek
-Proyek ini membangun model Deep Learning berbasis TensorFlow untuk mendeteksi kondisi gula darah melalui citra mata.
+Deteksi Kandungan Gizi dan Prediksi Indeks Glikemik Jajanan Pasar Indonesia. Proyek ini berfokus pada pencegahan diabetes dengan membantu pengguna dalam mengenali kandungan gula pada makanan tradisional.
 
 Model dikembangkan menggunakan TensorFlow Functional API dengan beberapa komponen custom seperti:
 - Custom Layer
@@ -31,7 +31,7 @@ Model dikembangkan menggunakan TensorFlow Functional API dengan beberapa kompone
 Aplikasi menggunakan Groq API sebagai fitur sekunder untuk:
 - memberikan rekomendasi konsumsi
 - alternatif jajanan lebih sehat
-- edukasi gula darah
+- edukasi gula
 - ringkasan konsumsi harian
 
 ## Cara Menjalankan API
