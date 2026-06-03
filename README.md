@@ -4,13 +4,13 @@
 ![MAE](https://img.shields.io/badge/MAE-0.002-blue)
 ![Deployment](https://img.shields.io/badge/Deployment-HuggingFace-yellow)
 
-#  Cek-Gula
+# 🍬 Cek-Gula - AI Food Nutrition & Blood Sugar Risk Detection
 
 ## Deteksi Kandungan Gizi dan Risiko Gula Darah pada Jajanan Pasar Indonesia Menggunakan Deep Learning dan Generative AI
 
 ---
 
-## Deskripsi Proyek
+# 📖 Deskripsi Proyek
 
 Cek-Gula adalah aplikasi berbasis Artificial Intelligence yang membantu pengguna mengenali jajanan pasar Indonesia melalui gambar dan menampilkan informasi nutrisi secara otomatis.
 
@@ -26,35 +26,35 @@ Pengguna cukup mengunggah gambar jajanan pasar, kemudian sistem akan:
 
 ---
 
-# Latar Belakang
+# 🩺 Latar Belakang
 
 Peningkatan kasus diabetes dan penyakit metabolik di Indonesia menjadi perhatian serius.
 
 Di sisi lain, jajanan pasar tradisional umumnya tidak memiliki informasi nutrisi yang jelas sehingga masyarakat sulit mengetahui:
 
-* Kandungan gula
-* Kandungan kalori
-* Kandungan karbohidrat
-* Risiko lonjakan gula darah
+- Kandungan gula
+- Kandungan kalori
+- Kandungan karbohidrat
+- Risiko lonjakan gula darah
 
 Cek-Gula hadir sebagai solusi berbasis AI yang mampu mengenali makanan tradisional Indonesia hanya dari gambar dan memberikan informasi nutrisi secara otomatis.
 
 ---
 
-# Solusi yang Ditawarkan
+# 💡 Solusi yang Ditawarkan
 
 Aplikasi menggabungkan:
 
-* Computer Vision
-* Deep Learning
-* Database Nutrisi
-* Generative AI
+- Computer Vision
+- Deep Learning
+- Database Nutrisi
+- Generative AI
 
 untuk membantu pengguna memahami risiko konsumsi makanan secara lebih mudah dan cepat.
 
 ---
 
-# Arsitektur Sistem
+# 🏗️ Arsitektur Sistem
 
 ```text
 ┌─────────────────────┐
@@ -104,78 +104,64 @@ Informasi Nutrisi   Rekomendasi AI
 
 ---
 
-# Model Deep Learning
+# 🧠 Model Deep Learning
 
 ## Backbone
 
-MobileNetV3Large
+**MobileNetV3Large**
 
 ### Transfer Learning
 
 Model menggunakan pretrained weights ImageNet kemudian dilakukan:
 
-* Frozen Training
-* Fine-Tuning
-* Full Fine-Tuning
+- Frozen Training
+- Fine-Tuning
+- Full Fine-Tuning
 
----
+### Custom Layer
 
-## Custom Layer
+#### AdaptivePreprocessing
 
-### AdaptivePreprocessing
+- Normalisasi gambar
+- Standardisasi berdasarkan mean dan standar deviasi citra
 
-Melakukan:
+#### SqueezeExcitation
 
-* Normalisasi gambar
-* Standardisasi berdasarkan mean dan standar deviasi citra
+- Memberikan attention terhadap fitur penting sebelum proses klasifikasi
 
-### SqueezeExcitation
+### Custom Loss Function
 
-Memberikan attention terhadap fitur penting sebelum proses klasifikasi.
-
----
-
-## Custom Loss Function
-
-### Focal Loss
+#### Focal Loss
 
 Digunakan untuk:
 
-* Mengurangi dampak class imbalance
-* Memfokuskan training pada sampel yang sulit diprediksi
+- Mengurangi dampak class imbalance
+- Memfokuskan training pada sampel yang sulit diprediksi
 
-Formula:
-
-```
+```text
 FL(pt) = -(1-pt)^γ log(pt)
 ```
 
----
+### Custom Callback
 
-## Custom Callback
+#### TargetAccuracyCallback
 
-### TargetAccuracyCallback
-
-Training otomatis dihentikan apabila:
-
-```
+```text
 Validation Accuracy ≥ 95%
 ```
 
 ---
 
-# Hasil Training
+# 📊 Hasil Training
 
-## Metrics
-
-| Metric              | Hasil  |
-| ------------------- | ------ |
+| Metric | Hasil |
+|----------|----------|
 | Validation Accuracy | 95.45% |
-| Target Accuracy     | 85%    |
-| Validation MAE      | 0.002  |
-| Target MAE          | < 0.02 |
+| Target Accuracy | 85% |
+| Validation MAE | 0.002 |
+| Target MAE | < 0.02 |
 
-Status:
+### Status
 
 ✅ Target Akurasi Tercapai
 
@@ -183,89 +169,66 @@ Status:
 
 ---
 
-# Strategi Training
-
-## Phase 1
-
-Frozen Backbone
-
-* MobileNetV3Large tidak dilatih
-* Hanya classifier head yang dilatih
-
-## Phase 2
-
-Partial Fine-Tuning
-
-* 80 layer terakhir di-unfreeze
-
-## Phase 3
-
-Full Fine-Tuning
-
-* Seluruh layer model dilatih kembali
-
----
-
-# Dataset
+# 🗂️ Dataset
 
 Dataset terdiri dari citra berbagai jajanan pasar Indonesia.
 
 Contoh kelas:
 
-* Klepon
-* Dadar Gulung
-* Lapis Legit
-* Onde-onde
-* Serabi
-* Wingko Babat
-* Bolu Gulung
-* dan lainnya
+- Klepon
+- Dadar Gulung
+- Lapis Legit
+- Onde-onde
+- Serabi
+- Wingko Babat
+- Bolu Gulung
+- dan lainnya
 
 Jumlah kelas:
 
-**100 kelas makanan tradisional Indonesia**
+**100 Kelas Makanan Tradisional Indonesia**
 
 ---
 
-# Informasi Nutrisi
+# 🥗 Informasi Nutrisi
 
-Setelah model mengenali makanan, sistem mengambil data nutrisi dari dataset:
+Setelah model mengenali makanan, sistem mengambil data nutrisi dari:
 
-```
+```text
 dataset_nutrisi_lengkap2.csv
 ```
 
 Informasi yang ditampilkan:
 
-* Kalori
-* Karbohidrat
-* Gula
-* Protein
-* Lemak
-* Glycemic Index (GI)
-* Glycemic Load (GL)
-* Risiko gula darah
-* Saran konsumsi
+- Kalori
+- Karbohidrat
+- Gula
+- Protein
+- Lemak
+- Glycemic Index (GI)
+- Glycemic Load (GL)
+- Risiko Gula Darah
+- Saran Konsumsi
 
 ---
 
-# Fitur Generative AI
+# 🤖 Fitur Generative AI
 
 Menggunakan:
 
-* Groq API
-* Llama 3.3 70B Versatile
+- Groq API
+- Llama 3.3 70B Versatile
 
 Fungsi:
 
-* Menjelaskan makanan
-* Memberikan edukasi kesehatan
-* Menjelaskan risiko gula darah
-* Memberikan saran pola makan sehat
+- Menjelaskan makanan
+- Memberikan edukasi kesehatan
+- Menjelaskan risiko gula darah
+- Memberikan saran pola makan sehat
 
 Contoh output:
 
-```
+```text
 Dadar gulung adalah kue tradisional Indonesia yang terbuat dari tepung dan gula merah.
 
 Risiko gula darah: tinggi.
@@ -275,27 +238,113 @@ Konsumsi secukupnya dan imbangi dengan aktivitas fisik.
 
 ---
 
+# ⚙️ Setup Environment
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/radhiaauliaa/model-cek-gula.git
+cd model-cek-gula
+```
+
+## 2. Buat Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## 3. Install Dependensi
+
+```bash
+pip install -r requirements.txt
+```
+
+## 4. Konfigurasi Environment Variable
+
+Buat file `.env`:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+# 🤖 Model Machine Learning
+
+Model TensorFlow (.keras) dapat diunduh melalui:
+
+👉 **[Download Model Cek-Gula](https://drive.google.com/drive/folders/1Ok6y3BmgaMr9ifeOtdfZ4fX7u8AkEUg-?usp=sharing)**
+
+Setelah diunduh, letakkan file model pada root project:
+
+```text
+model_cek_gula_v3.keras
+```
+
+### Cara Memuat Model
+
+```python
+import tensorflow as tf
+
+model = tf.keras.models.load_model(
+    "model_cek_gula_v3.keras",
+    custom_objects={
+        "AdaptivePreprocessing": AdaptivePreprocessing,
+        "SqueezeExcitation": SqueezeExcitation,
+        "FocalLoss": FocalLoss
+    }
+)
+```
+
+---
+
+# 🚀 Cara Menjalankan Aplikasi
+
+Jalankan FastAPI:
+
+```bash
+uvicorn app:app --reload
+```
+
+Akses aplikasi:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger Documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
 # 🔌 REST API
 
 ## Base URL
 
-```
+```text
 https://aulian12-model-cek-gula.hf.space
 ```
 
----
+## Swagger Documentation
 
-## Dokumentasi API (Swagger)
-
-```
+```text
 https://aulian12-model-cek-gula.hf.space/docs
 ```
 
----
-
-## GET /
-
-Cek status API.
+### GET /
 
 Response:
 
@@ -305,13 +354,9 @@ Response:
 }
 ```
 
----
+### POST /predict
 
-## POST /predict
-
-Upload gambar makanan.
-
-### Request
+Request:
 
 ```bash
 curl -X POST \
@@ -321,21 +366,12 @@ curl -X POST \
 -F "file=@gambar.png"
 ```
 
-### Response
+Response:
 
 ```json
 {
   "prediction": "dadar gulung",
-  "confidence": 99.91,
-  "nutrisi": {
-    "porsi": "100 g",
-    "kalori": "139.0 kkal",
-    "karbohidrat": "17.15 g",
-    "gula": "3.48 g",
-    "protein": "2.82 g",
-    "lemak": "6.79 g"
-  },
-  "rekomendasi_ai": "Dadar gulung adalah kue tradisional Indonesia..."
+  "confidence": 99.91
 }
 ```
 
@@ -344,102 +380,107 @@ curl -X POST \
 # 📁 Struktur Proyek
 
 ```text
-cek-gula/
+PROYEK CEK GULA
+│
+├── __pycache__/
+├── logs/
+│
+├── .env
+├── .gitattributes
+├── .gitignore
 │
 ├── app.py
 ├── groq_helper.py
+├── inference.py
+│
+├── best_model.keras
+├── best_model_phase1.keras
+├── model_cek_gula_v3.keras
+│
+├── cek_gula.ipynb
+│
+├── dataset_nutrisi_lengkap.csv
+├── dataset_nutrisi_lengkap2.csv
+│
+├── Dockerfile
 ├── requirements.txt
 ├── README.md
 │
-├── model_cek_gula_v3.keras
-│
-├── dataset_nutrisi_lengkap2.csv
-│
-├── model-cek-gula.ipynb
-│
-└── logs/
+├── train_history_v3.png
+└── images.png
 ```
 
 ---
 
-# Teknologi yang Digunakan
+# 🛠️ Teknologi & Dependensi Utama
 
-## Machine Learning
-
-* TensorFlow
-* Keras
-* NumPy
-
-## Backend
-
-* FastAPI
-* Uvicorn
-
-## Data Processing
-
-* Pandas
-* Pillow
-
-## Generative AI
-
-* Groq API
-* Llama 3.3 70B Versatile
-
-## Deployment
-
-* Hugging Face Spaces
+| Teknologi | Deskripsi |
+|------------|------------|
+| TensorFlow | Framework Deep Learning untuk training dan inferensi model klasifikasi gambar. |
+| Keras | High-level API TensorFlow untuk membangun dan melatih model neural network. |
+| MobileNetV3Large | Backbone CNN ringan dan efisien yang digunakan untuk klasifikasi jajanan pasar. |
+| FastAPI | Framework backend modern untuk membangun REST API berperforma tinggi. |
+| Uvicorn | ASGI server untuk menjalankan aplikasi FastAPI. |
+| Pandas | Pengolahan dataset nutrisi dan analisis data tabular. |
+| NumPy | Operasi numerik dan manipulasi array multidimensi. |
+| Pillow (PIL) | Pemrosesan dan preprocessing gambar sebelum inferensi model. |
+| Groq API | Integrasi Large Language Model untuk menghasilkan rekomendasi konsumsi makanan. |
+| Llama 3.3 70B Versatile | Model Generative AI yang digunakan untuk edukasi kesehatan dan rekomendasi makanan. |
+| Hugging Face Spaces | Platform deployment aplikasi AI dan REST API. |
+| Docker | Containerization untuk deployment yang konsisten dan mudah direproduksi. |
 
 ---
 
-# Deployment
+# ☁️ Deployment
 
-Model dan API dideploy menggunakan:
+Deployment menggunakan:
 
-* Hugging Face Spaces
-* FastAPI
-* TensorFlow
+- Hugging Face Spaces
+- FastAPI
+- TensorFlow
+- Docker
 
-Deployment menyediakan:
+Fitur deployment:
 
-* REST API
-* Swagger Documentation
-* Real-time Inference
-
----
-
-# Pengembangan Selanjutnya
-
-* Perhitungan nutrisi berdasarkan jumlah porsi
-* Input jumlah potong makanan
-* Estimasi berat makanan dari gambar
-* Riwayat konsumsi pengguna
-* Monitoring konsumsi gula harian
-* Rekomendasi makanan rendah gula
+- REST API
+- Swagger Documentation
+- Real-time Inference
 
 ---
 
-# Tim Pengembang
+# 🔮 Pengembangan Selanjutnya
+
+- Perhitungan nutrisi berdasarkan jumlah porsi
+- Input jumlah potong makanan
+- Estimasi berat makanan dari gambar
+- Riwayat konsumsi pengguna
+- Monitoring konsumsi gula harian
+- Rekomendasi makanan rendah gula
+
+---
+
+# 👥 Tim Pengembang
 
 ### AI Engineer
 
-* Pengembangan model Deep Learning
-* Training dan evaluasi model
+- Pengembangan model Deep Learning
+- Training dan evaluasi model
 
 ### Data Scientist
 
-* Dataset
-* Nutritional Database
-* Analisis data
+- Dataset
+- Nutritional Database
+- Analisis Data
 
 ### Full Stack Developer
 
-* Backend API
-* Frontend
-* Deployment
+- Backend API
+- Frontend
+- Deployment
 
 ---
 
-# Lisensi
+# 📄 Lisensi
 
 © 2026 Tim CC26-PSU007
 
