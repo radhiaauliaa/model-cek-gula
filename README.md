@@ -1,10 +1,9 @@
+# 🍬 Cek-Gula - AI Food Nutrition & Blood Sugar Risk Detection
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![Accuracy](https://img.shields.io/badge/Accuracy-95.45%25-brightgreen)
 ![MAE](https://img.shields.io/badge/MAE-0.002-blue)
 ![Deployment](https://img.shields.io/badge/Deployment-HuggingFace-yellow)
-
-# 🍬 Cek-Gula - AI Food Nutrition & Blood Sugar Risk Detection
 
 ## Deteksi Kandungan Gizi dan Risiko Gula Darah pada Jajanan Pasar Indonesia Menggunakan Deep Learning dan Generative AI
 
